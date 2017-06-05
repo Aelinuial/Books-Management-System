@@ -1,0 +1,55 @@
+create database bookmanage;
+use bookmanage;
+
+create table manager(
+manager_id char(5),
+password varchar(20) not null,
+user_name varchar(20) not null,
+contaction varchar(20),
+primary key(manager_id)
+);
+
+insert into manager values('001','123','gly','18867140349');
+
+create table user(
+user_id int,
+user_name varchar(20) not null,
+password varchar(20) not null,
+primary key(user_id)
+);
+
+
+create table book(
+book_id char(5),
+type varchar(20),
+name varchar(20) not null,
+publisher varchar(15),
+publish_time year,
+author varchar(15),
+price float(9,2) unsigned,
+total_store int not null,
+current_store int not null,
+manager_id char(5),
+foreign key(manager_id) references manager(manager_id),
+primary key(book_id)
+);
+
+create table card(
+card_id char(10),
+user_name varchar(20) not null,
+unit varchar(20),
+type varchar(10),
+primary key(card_id)
+);
+
+create table borrow(
+book_id char(5),
+card_id char(10),
+begin_day date,
+end_day date,
+manager_id char(5),
+primary key(book_id,card_id),
+foreign key(book_id) references book(book_id),
+foreign key(card_id) references card(card_id),
+foreign key(manager_id) references manager(manager_id)
+);
